@@ -6,6 +6,7 @@ import CreateCampaign from './components/CreateCampaign';
 import Dashboard from './components/Dashboard';
 import WalletInfo from './components/WalletInfo';
 import BlockchainInfo from './components/BlockchainInfo';
+import DonatePage from './components/DonatePage';
 import './App.css';
 
 const TABS = [
@@ -41,6 +42,8 @@ export default function App() {
             onBack={() => setActiveTab('campaigns')}
           />
         );
+      case 'donate':
+        return <DonatePage slug={selectedCampaignId} />;
       case 'create':
         return <CreateCampaign onCreate={openCampaign} />;
       case 'dashboard':
