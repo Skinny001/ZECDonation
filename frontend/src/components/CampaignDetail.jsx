@@ -225,12 +225,12 @@ export default function CampaignDetail({ id, onBack }) {
             <button className="btn btn-sm btn-secondary" onClick={handleCopyAddress}>
               {copied ? 'Copied!' : 'Copy'}
             </button>
-            <div className="qr-inline">
-              <QRCodeSVG value={campaign.donation_address} size={120} level="M" includeMargin={true} />
-            </div>
             <button className="btn btn-sm btn-primary" onClick={() => setShowDonate(true)}>
               Donate
             </button>
+            <div className="qr-inline">
+              <QRCodeSVG value={campaign.donation_address} size={120} level="M" includeMargin={true} />
+            </div>
           </div>
         </div>
 
