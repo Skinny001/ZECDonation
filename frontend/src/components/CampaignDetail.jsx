@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function CampaignDetail({ id, onBack }) {
   const [campaign, setCampaign] = useState(null);
@@ -119,7 +120,7 @@ export default function CampaignDetail({ id, onBack }) {
   }
 
   const isExpired = campaign.deadline && new Date(campaign.deadline) < new Date();
-  const shareUrl = `${window.location.origin}/campaign/${campaign.slug}`;
+  const shareUrl = `${window.location.origin}/donate/${campaign.slug}`;
 
   const syncedTotal = chainData?.total_received != null
     ? parseFloat(chainData.txs.reduce((sum, t) => sum + Math.abs(t.amount), 0))
@@ -220,10 +221,13 @@ export default function CampaignDetail({ id, onBack }) {
             <div className="form-label">Donation Address</div>
             <div className="mono" style={{ fontSize: 14 }}>{campaign.donation_address}</div>
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <button className="btn btn-sm btn-secondary" onClick={handleCopyAddress}>
               {copied ? 'Copied!' : 'Copy'}
             </button>
+            <div className="qr-inline">
+              <QRCodeSVG value={campaign.donation_address} size={120} level="M" includeMargin={true} />
+            </div>
             <button className="btn btn-sm btn-primary" onClick={() => setShowDonate(true)}>
               Donate
             </button>

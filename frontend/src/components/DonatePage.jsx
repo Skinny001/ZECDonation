@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function DonatePage({ slug }) {
   const [campaign, setCampaign] = useState(null);
@@ -99,11 +100,17 @@ export default function DonatePage({ slug }) {
 
         <div className="donate-address-section">
           <label>Donation Address</label>
-          <div className="address-row">
-            <code className="address">{campaign.donation_address}</code>
-            <button className="btn btn-sm btn-secondary" onClick={handleCopy}>
-              {copied ? 'Copied!' : 'Copy'}
-            </button>
+          <div className="address-with-qr">
+            <div className="address-row">
+              <code className="address">{campaign.donation_address}</code>
+              <button className="btn btn-sm btn-secondary" onClick={handleCopy}>
+                {copied ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+            <div className="qr-container">
+              <QRCodeSVG value={campaign.donation_address} size={160} level="M" includeMargin={true} />
+              <p className="qr-hint">Scan with wallet app</p>
+            </div>
           </div>
           <p className="hint">Send ZEC from your wallet to this address</p>
         </div>

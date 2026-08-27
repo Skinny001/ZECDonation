@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../api';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function CreateCampaign({ onCreate }) {
   const [title, setTitle] = useState('');
@@ -59,9 +60,21 @@ export default function CreateCampaign({ onCreate }) {
 
       {result && (
         <div className="alert alert-success">
-          Campaign created!{result.donation_address
-            ? ` Address: ${result.donation_address}`
-            : ''}
+          <div>Campaign created!</div>
+          <div className="create-result-qr">
+            <QRCodeSVG value={result.donation_address} size={140} level="M" includeMargin={true} />
+            <div className="create-result-address">
+              <code>{result.donation_address}</code>
+              <button className="btn btn-sm btn-secondary" onClick={() => {
+                navigator.clipboard.writeText(result.donation_address);
+              }}>
+                Copy
+              </button>
+            </div>
+          </div>
+          <p className="form-hint" style={{ marginTop: 12 }}>
+            Share this QR code or address with donors. They can scan or copy.
+          </p>
         </div>
       )}
 
