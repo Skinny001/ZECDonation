@@ -2,18 +2,18 @@ const { v4: uuidv4 } = require('uuid');
 const { db } = require('./database');
 
 class DonationService {
-  static createDonation(campaignId, amount, donorAddress = '', message = '') {
+  static createDonation(campaignId, amount, donorAddress = '', message = '', status = 'pending') {
     return new Promise((resolve, reject) => {
       const id = uuidv4();
       const sql = `
         INSERT INTO donations (id, campaign_id, donor_address, amount, message, status)
-        VALUES (?, ?, ?, ?, ?, 'pending')
+        VALUES (?, ?, ?, ?, ?, ?)
       `;
 
-      db.run(sql, [id, campaignId, donorAddress, amount, message], function (err) {
+      db.run(sql, [id, campaignId, donorAddress, amount, message, status], function (err) {
         if (err) return reject(err);
-        DonationService.addHistory(id, 'pending', 'Donation recorded').catch(() => {});
-        resolve({ id, campaignId, donorAddress, amount, message, status: 'pending' });
+        DonationService.addHistory(id, status, 'Donation recorded').catch(() => {});
+        resolve({ id, campaignId, donorAddress, amount, message, status });
       });
     });
   }

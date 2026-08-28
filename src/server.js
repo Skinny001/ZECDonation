@@ -127,8 +127,9 @@ app.post('/api/campaigns/:id/donations', async (req, res) => {
     if (!amount) {
       return res.status(400).json({ error: 'Amount is required' });
     }
+    const status = tx_id ? 'completed' : 'completed'; // User confirms "I've Sent" -> completed
     const donation = await DonationService.createDonation(
-      req.params.id, amount, donor_address || '', message || ''
+      req.params.id, amount, donor_address || '', message || '', status
     );
     if (tx_id) {
       await DonationService.updateDonationStatus(donation.id, 'completed', tx_id);
