@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Sensitive Configs
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Keys, Wallet Credentials, Secrets & Node Caches
+*.key
+*.pem
+*.seed
+*.cookie
+*.dat
+*.keystore
+.wallet/
+.zebra-cache/
+data/
+zallet.toml
+
+# Databases & Backups
+donations.db
+donations.db*
+*.db
+*.lock
+*.sqlite
+*.sqlite3
+
+# Logs & System
+*.log
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Build & Test outputs
+dist/
+coverage/
+
+# Internal Docs & Markdown Notes (keeps README.md public)
+DECISIONS.md
+skills.md
